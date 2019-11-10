@@ -1,0 +1,56 @@
+var position;
+var date, hours, minute, seconds;
+var latitude, logitude, timestamp;
+var currentLat, currentLon;
+
+var myMap;
+var mappa = new Mappa("Leaflet");
+var options = {
+  lat: 0,
+  lng: 0,
+  zoom: 4,
+  style: "http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+}
+
+function preload(){
+  // position = getCurrentPosition(); //don't call the variable "location"
+}
+
+function setup() {
+  var canvas = createCanvas(windowWidth, windowHeight);
+
+  latitude = createP();
+  longitude = createP();
+  timestamp = createP();
+
+  intervalCurrentPosition(showPosition, 1000);
+
+  var lat1 = 45, lon1 = 40, lat2 = 50, lon2 = 35;
+  var distance = calcGeoDistance(lat1, lon1, lat2, lon2, "km");
+  console.log(distance);
+
+  myMap = mappa.tileMap(options);
+  myMap.overlay(canvas);
+}
+
+function draw() {
+}
+
+function showPosition(position) {
+  currentLat = position.latitude;
+  currentLon = position.longitude;
+
+  t = new Date;
+  date = t.getTime();
+  hours = t.getHours();
+  minutes = "0" + t.getMinutes();
+  seconds = "0" + t.getSeconds();
+
+  var formattedTime = hours + ":" + minutes.substr(-2) + ':' + seconds.substr(-2);
+
+  latitude.html("Latitude: " + currentLat);
+  longitude.html("Longitude: " + currentLon);
+  timestamp.html("Time: " + formattedTime);
+
+  // console.log(position);
+}
