@@ -17,10 +17,11 @@ var options = {
 var rnd = 0;
 var p = [];
 var places = [
-  {lat: 43.64229, lng: 10.62826}, //La Borra
+  {lat: 45.58209, lng:  9.48661}, //Trezzano Rosa
   {lat: 41.36246, lng: 15.31228}, //Troia
   {lat: 42.86943, lng: 12.55935}, //Bastardo
   {lat: 46.52666, lng: 10.17484}, //Trepalle
+  {lat: 43.64229, lng: 10.62826}, //La Borra
   {lat: 38.08898, lng: 13.46774}, //Ficarazzi
   {lat: 40.87793, lng:  8.90875}, //Scupaggiu
   {lat: 45.79670, lng:  8.73318}, //Cazzago Brabbia
@@ -71,7 +72,10 @@ function draw() {
 
 function fly(val) {
   rnd = round(random(0, places.length-1));
+  canvas.remove();
+  select("div").remove();
   select("#MapboxGL").remove();
+  canvas = createCanvas(windowWidth, windowHeight);
   if (val==1) {
     options.lat = places[rnd].lat;
     options.lng = places[rnd].lng;
